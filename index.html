@@ -1,0 +1,71 @@
+ <html>
+  <head>
+  <!-- install jQuery by CDN(Content Delivery Network) from Google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+  <!-- install bootstrap by CDN -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <!-- install fontawesome by CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- javascript 路徑設定 -->
+    <script src="./js/main.js"></script>
+  <!-- css 路徑設定 -->
+    <link rel="stylesheet" href="./css/main.css">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <a class="navbar-brand" href="http://data.taipei/opendata/datalist/datasetMeta?oid=6556e1e8-c908-42d5-b984-b3f7337b139b">
+          <img alt="Brand" src="http://www.pacific.com.tw/Images/logo_mrt.gif">
+        </a>
+        <h4 id="navTop" class="navbar-text">臺北捷運到站紀錄</h4>
+    </nav>
+
+    <br>
+    <br>
+    <h1>臺北捷運到站紀錄</h1>
+
+    <i id="loading" class="fa fa-refresh fa-spin fa-5x"></i>
+
+    <div id="content" class="container"></div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+      <h5 id="navBottom">&copy; 會計四 101303054 廖仲瑜</h5>
+    </nav>
+
+  </body>
+  <script>
+    $(document).ready(function() {
+      getData(function(err, data) {
+        if(err) {
+          console.log(err);
+        }
+        else {
+          var JSONstationList = data.result.results;
+          var HTMLstationList = JSONstationList.map(function(station) {
+            var HTMLString = "<h2>"+"進站："+station.Station+"</h2>";
+            var attributes = "";
+            for (var key in station) {
+              if(key!="_id"){
+                attributes += "<li class='list-group-item'>" + key + "：" + station[key] + "</li>";
+              }
+            }
+            var HTMLString = HTMLString + attributes;
+            return HTMLString;
+          });
+          HTMLstationList.forEach(function(html) {
+            $(html).appendTo("#content");
+          });
+          $('#loading').css('display','none');
+        }
+      });
+    });
+  </script>
+</html>
