@@ -40,7 +40,7 @@ style>
 
 .panel.panel-success
 {
-  border: #AA0000 3px solid;
+  border:	#00FFFF 3px solid;
   ;
 }
 
@@ -54,7 +54,7 @@ style>
 .sk-cube-grid .sk-cube {
   width: 20%;
   height: 20%;
-  background-color: #CC0000;
+  background-color: #5555FF;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
         animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
